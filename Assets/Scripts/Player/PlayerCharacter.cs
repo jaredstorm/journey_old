@@ -12,11 +12,15 @@ namespace Storm.Player {
 
         public PlayerMovement movement;
 
+        public Rigidbody2D rb;
         public PlayerCollisionSensor sensor;
 
         public void Start() {
             if (sensor == null) {
                 sensor = GetComponent<PlayerCollisionSensor>();
+            }
+            if (rb == null) {
+                rb = GetComponent<Rigidbody2D>();
             }
         }
     }

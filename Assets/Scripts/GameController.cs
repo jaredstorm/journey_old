@@ -51,7 +51,7 @@ public class GameController : Singleton<GameController>
 
 
     public void KillPlayer(PlayerCharacter player) {
-        
+
         //UIAnimator.SetBool("Faded", true);  
         RespawnPlayer(player);
     }
@@ -65,6 +65,9 @@ public class GameController : Singleton<GameController>
     public void RespawnPlayer(PlayerCharacter player) {
         //TODO: Add spawn particles
         player.transform.position = transitions.getSpawnPosition();
+        if (player.rb != null) {
+            player.rb.velocity = Vector3.zero;
+        }
     }
 
 

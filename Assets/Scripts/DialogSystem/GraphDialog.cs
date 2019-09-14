@@ -57,7 +57,9 @@ namespace Storm.DialogSystem {
                     graph.Add(n.key, n);
                 }
 
-                root = nodes[0];
+                if (nodes.Length > 0) {
+                    root = nodes[0];
+                }
             }
         }
 
@@ -177,6 +179,7 @@ namespace Storm.DialogSystem {
 
 
         public void OnTriggerStay2D(Collider2D other) {
+            if (root == null) return;
             
             // Start or continue a dialog.
             if (other.CompareTag("Player")) {
