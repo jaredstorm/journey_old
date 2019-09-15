@@ -6,6 +6,8 @@ using Storm.Player;
 
 public class TargettingCamera : MonoBehaviour
 {
+    public LayerMask mask;
+
     public bool freezeX;
 
     private bool isXFrozen;
@@ -32,6 +34,7 @@ public class TargettingCamera : MonoBehaviour
     private Camera defaultSettings;
 
     void Start() {
+        Debug.Log("Camera Startup");
         defaultSettings = GetComponent<Camera>();
         if (player == null) {
             player = FindObjectOfType<PlayerCharacter>();
@@ -40,6 +43,23 @@ public class TargettingCamera : MonoBehaviour
         ClearTarget();
         ClearFreezeX();
         ClearFreezeY();
+        
+        var hit = Physics2D.Raycast(player.transform.position,Vector2.zero,0);
+        if (hit.rigidbody != null) {
+            Debug.Log("Collision!");
+            transform.position = hit.rigidbody.transform.position;
+            //transform.position = hit.collider.transform.position;
+        } else {
+            transform.position = player.transform.position;
+            if (!isCentered) {
+                Debug.Log("To Player!");
+                if (player.movement.isFacingRight) {
+                    transform.position += rightOffset;
+                } else {
+                    transform.position += leftOffset;
+                }
+            }
+        }
     }
 
     void FixedUpdate() {
@@ -75,9 +95,9 @@ public class TargettingCamera : MonoBehaviour
             // choose appropriate camera offset.
             if (isCentered) {
                 pos += targetOffset;
-            } if (player.movement.isFacingRight) {
+            } else if (player.movement.isFacingRight) {
                 pos += rightOffset;
-            } else {
+            } else if (!player.movement.isFacingRight) {
                 pos += leftOffset;
             }
             

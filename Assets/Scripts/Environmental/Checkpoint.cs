@@ -13,7 +13,7 @@ public class Checkpoint : MonoBehaviour
     }
 
     public void OnTriggerEnter2D(Collider2D col) {
-        Debug.Log("Name: " + name);
+        //Debug.Log("Name: " + name);
         if (col.CompareTag("Player")) {
             GameController.Instance.transitions.setCurrentSpawn(spawn.spawnName);
         }

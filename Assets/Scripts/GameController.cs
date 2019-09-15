@@ -9,6 +9,8 @@ public class GameController : Singleton<GameController>
 {
     public TransitionManager transitions;
 
+    public ResetManager resets;
+
     public SpawnPoint initialSpawn;
 
     public float gravity;
@@ -26,8 +28,11 @@ public class GameController : Singleton<GameController>
             DontDestroyOnLoad(this);
         }
 
+        var audio = 
+
         Physics2D.gravity = new Vector2(0,-gravity);
         transitions = new TransitionManager();
+        resets = new ResetManager();
 
         if (initialSpawn == null) {
             transitions.RegisterSpawn("SCENE_START", GameObject.FindGameObjectWithTag("Player").transform.position, true);
@@ -52,7 +57,8 @@ public class GameController : Singleton<GameController>
 
     public void KillPlayer(PlayerCharacter player) {
 
-        //UIAnimator.SetBool("Faded", true);  
+        //UIAnimator.SetBool("Faded", true); 
+        resets.Reset();
         RespawnPlayer(player);
     }
 
@@ -74,6 +80,21 @@ public class GameController : Singleton<GameController>
 
 
 
+}
+
+public class ResetManager {
+
+    private List<Resetting> resetListenters;
+
+    public void Reset() {
+        if (resetListenters == null) {
+            resetListenters = new List<Resetting>(GameObject.FindObjectsOfType<Resetting>());
+        }
+
+        foreach (var r in resetListenters) {
+            r.Reset();
+        }
+    }
 }
 
 /*

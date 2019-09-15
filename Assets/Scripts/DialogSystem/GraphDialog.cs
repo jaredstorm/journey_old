@@ -169,7 +169,7 @@ namespace Storm.DialogSystem {
 
             // Prepare to enter a dialog.
             if (other.CompareTag("Player")) {
-                Debug.Log("Disable Jump!");
+                //Debug.Log("Disable Jump!");
                 PlayerCharacter player = other.GetComponent<PlayerCharacter>();
                 player.movement.DisableJump();
 

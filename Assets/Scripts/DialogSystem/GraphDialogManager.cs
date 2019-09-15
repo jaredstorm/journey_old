@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-
+using TMPro;
 using Storm.Player;
 
 namespace Storm.DialogSystem {
@@ -17,8 +17,8 @@ namespace Storm.DialogSystem {
 
         public float inputDelay;
 
-        public Text speakerText;
-        public Text sentenceText;
+        public TextMeshProUGUI speakerText;
+        public TextMeshProUGUI sentenceText;
 
         public Animator animator;
         public Queue<Sentence> snippets;

@@ -33,9 +33,12 @@ public class CameraTarget : MonoBehaviour {
 
     public void OnTriggerStay2D(Collider2D col) {
         if (col.gameObject.CompareTag("Player")) {
-            cam.SetTarget(cameraSettings);
-            cam.SetFreezeX(freezeX);
-            cam.SetFreezeY(freezeY);
+            if (cam.target.transform.position != cameraSettings.transform.position) {
+                GameController.Instance.resets.Reset();
+                cam.SetTarget(cameraSettings);
+                cam.SetFreezeX(freezeX);
+                cam.SetFreezeY(freezeY);
+            }
         }
     }
 

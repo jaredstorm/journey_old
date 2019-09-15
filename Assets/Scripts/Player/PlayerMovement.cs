@@ -144,7 +144,7 @@ namespace Storm.Player {
 
             // If the player is turning around, apply more force
             float adjustedInput = inputDirection == motionDirection ? input : input*rebound;
-            Debug.Log("PlayerMovement.moveCalculations(): adjustedInput: "+adjustedInput);
+            //Debug.Log("PlayerMovement.moveCalculations(): adjustedInput: "+adjustedInput);
 
             float horizSpeed = Mathf.Clamp(rb.velocity.x+adjustedInput*acceleration, -maxVelocity, maxVelocity);
             rb.velocity = new Vector2(horizSpeed, rb.velocity.y);

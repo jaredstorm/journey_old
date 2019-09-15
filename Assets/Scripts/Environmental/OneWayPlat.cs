@@ -49,16 +49,16 @@ public class OneWayPlat : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("OnTriggerEnter");
+        //Debug.Log("OnTriggerEnter");
         if (other.CompareTag("Player")) {
-            Debug.Log("Found Player!");
+            //Debug.Log("Found Player!");
             PlayerCharacter player = other.GetComponent<PlayerCharacter>();
 
             // if Player is below the platform.
             Vector3 direction = transform.position - player.transform.position;
-            Debug.Log("Y VAL: " + direction.y);
+            //Debug.Log("Y VAL: " + direction.y);
             if (direction.y >= 0) {
-                Debug.Log("Collision!");
+                //Debug.Log("Collision!");
                 DisablePlatform();
                 disableTimer = disabledTime;
             }

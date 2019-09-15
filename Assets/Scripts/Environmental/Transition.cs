@@ -18,7 +18,7 @@ public class Transition : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
-            Debug.Log("Loading new scene!");
+            //Debug.Log("Loading new scene!");
             transitions.MakeTransition(destinationScene, spawnPointName);
         }
     }

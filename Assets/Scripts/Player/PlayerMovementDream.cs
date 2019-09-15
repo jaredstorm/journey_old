@@ -131,22 +131,23 @@ namespace Storm.Player {
 
 
             // Check whether facing left or right
-            if (!anim.GetBool("IsFacingRight") && rb.velocity.x > 0) {
+            if (!anim.GetBool("IsFacingRight") && rb.velocity.x > 0.1) {
                 anim.SetBool("IsFacingRight", true);
-            } else if (rb.velocity.x < 0) {
+            } else if (rb.velocity.x < -0.1) {
                 anim.SetBool("IsFacingRight", false);
             }
 
             // Update player facing information for camera
-            float motionDirection = Mathf.Sign(rb.velocity.x);
+            //Debug.Log(rb.velocity.x);
             if (isOnGround) {
-                if (motionDirection < 0) {
+                if (rb.velocity.x < -0.1) {
                     isFacingRight = false;
-                } else if (motionDirection > 0) {
+                } else if (rb.velocity.x > 0.1) {
                     isFacingRight = true;
                 }
                 // zero case: leave boolean as is
             }
+            //Debug.Log(isFacingRight);
             
             // Check if the character is touching a wall.
             isOnGround = sensor.isTouchingFloor();
@@ -380,7 +381,7 @@ namespace Storm.Player {
                 jumpTimer > jumpInputDelay) {
 
                 if (isOnLeftWall || isOnRightWall) {
-                    Debug.Log("if (isOnLeftWall || isOnRightWall) {");
+                    //Debug.Log("if (isOnLeftWall || isOnRightWall) {");
                     resetJumpLogic();
                 } else if (!hasDoubleJumped) {
                     canDoubleJump = true;
