@@ -8,6 +8,7 @@ TagManager:
   - Semisolid
   - Decisions
   - Resettable
+  - UI
   layers:
   - Default
   - TransparentFX
