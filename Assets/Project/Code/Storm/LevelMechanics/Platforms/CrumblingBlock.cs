@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Storm.Platforms {
+namespace Storm.LevelMechanics.Platforms {
 
     public class CrumblingBlock : MonoBehaviour
     {

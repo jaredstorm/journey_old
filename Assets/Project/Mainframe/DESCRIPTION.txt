@@ -1,0 +1,26 @@
+-------------------------------------------------------------------------------
+STRUCTURE
+-------------------------------------------------------------------------------
+
+0_Common:
+  This folder contains prefabs, assets, and scenes that are common to parts of the mainframe
+  gameplay. If you have an assets that are shared between both the overworld and the mainframe,
+  they go in Project/Common/ instead.
+
+Other Folders:
+  Prefabs, scenes, and assets specific to that mainframe level. Each area's subfolder
+  is organized like so:
+  
+    0_Prefabs:
+      Prefabricated parts that are reusable between scenes.
+    1_BaseScenes:
+      Template scenes that can be duplicated and renamed for a quick start to a new mainframe
+      level scene.
+    2_Scenes:
+      The actual scenes of the level.
+    Assets:
+      The art, animation, sound, etc., involved in making the above prefabs and scenes. 
+      
+    ***REMEBER***
+    Anything that's shared between two mainframe levels should go in Project/Mainframe/Common instead.
+      

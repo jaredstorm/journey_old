@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Storm.ResetSystem;
 
-namespace Storm.Platforms {
+namespace Storm.LevelMechanics.Platforms {
 
     public class CrumblingPlatform : Resetting
     {

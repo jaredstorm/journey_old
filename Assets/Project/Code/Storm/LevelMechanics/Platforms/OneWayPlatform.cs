@@ -6,7 +6,7 @@ using UnityEngine;
 
 using Storm.Characters.Player;
 
-namespace Storm.Platforms {
+namespace Storm.LevelMechanics.Platforms {
 
   /**
     Platforms that players can hop onto from below.
