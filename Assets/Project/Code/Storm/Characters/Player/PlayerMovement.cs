@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Storm.Characters.Player {
+
+    public enum PlayerMovementMode {
+        Realistic,
+        Mainframe,
+        LiveWire,
+    }
+
     public abstract class PlayerMovement : MonoBehaviour {
 
         // ------------------------------------------------------------------------
@@ -11,6 +18,8 @@ namespace Storm.Characters.Player {
         public Rigidbody2D rb;
 
         public Animator anim;
+
+        public  BoxCollider2D boxCollider;
 
         protected PlayerCollisionSensor sensor;
 
@@ -85,81 +94,31 @@ namespace Storm.Characters.Player {
 
         // Start is called before the first frame update
         public virtual void Start() {
-            var pos = GameManager.Instance.transitions.getSpawnPosition();
-
             transform.position = GameManager.Instance.transitions.getSpawnPosition();
             isFacingRight = GameManager.Instance.transitions.getSpawningRight();
+            anim = GetComponent<Animator>();
             anim.SetBool("IsFacingRight", isFacingRight);
 
             jumpForce = new Vector2(0, jump);
             maxSqrVelocity = maxVelocity*maxVelocity;
             rb = GetComponent<Rigidbody2D>();
             rb.freezeRotation = true;
-            anim = GetComponent<Animator>();
 
             sensor = GetComponent<PlayerCollisionSensor>();
+            boxCollider = GetComponent<BoxCollider2D>();
         }
 
         // ------------------------------------------------------------------------
-        // Player Movement Hooks
+        // Mode Activation
         // ------------------------------------------------------------------------
-
-        protected virtual void jumpCalculations() {
-            RaycastHit2D hit = Physics2D.Raycast(
-                transform.position, 
-                Vector2.down, 
-                distanceToGround, 
-                groundLayerMask
-            );
-            
-            if (hit.collider != null) {
-                isOnGround = true;
-            }
-
-            // Jump if situationally appropriate.
-            if (isJumpingEnabled && 
-                isOnGround &&
-                (Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space))) {
-
-                rb.AddForce(jumpForce, ForceMode2D.Impulse);
-                isOnGround = false;
-            } 
+        public virtual void Deactivate() {
+            enabled = false;
         }
 
-        protected virtual void moveCalculations() {
-            // Move the player.
-            if (!isMovingEnabled) return;
-
-            float input = Input.GetAxis("Horizontal");
-
-            // decelerate.
-            if (Mathf.Abs(input) != 1 && isOnGround) { 
-                rb.velocity *= deceleration; 
-                return;
-            }
-
-            // Get player direction.
-            float inputDirection = Mathf.Sign(input);
-            float motionDirection = Mathf.Sign(rb.velocity.x);
-
-            // If the player is turning around, apply more force
-            float adjustedInput = inputDirection == motionDirection ? input : input*rebound;
-            //Debug.Log("PlayerMovement.moveCalculations(): adjustedInput: "+adjustedInput);
-
-            float horizSpeed = Mathf.Clamp(rb.velocity.x+adjustedInput*acceleration, -maxVelocity, maxVelocity);
-            rb.velocity = new Vector2(horizSpeed, rb.velocity.y);
-        
-            // Update player facing information
-            if (isOnGround) {
-                if (motionDirection < 0) {
-                    isFacingRight = false;
-                } else if (motionDirection > 0) {
-                    isFacingRight = true;
-                }
-                // zero case: leave boolean as is
-            }
-
+        public virtual void Activate() {
+            enabled = true;
         }
+
 
         // ------------------------------------------------------------------------
         // Player Movement Controls
@@ -179,38 +138,6 @@ namespace Storm.Characters.Player {
 
         public void DisableMoving() {
             isMovingEnabled = false;
-        }
-
-        // ------------------------------------------------------------------------
-        // Player Senses
-        // ------------------------------------------------------------------------
-        public virtual bool isTouching(Vector2 direction, float distance) {
-            RaycastHit2D hit = Physics2D.Raycast(
-                transform.position, 
-                direction,
-                distance, 
-                groundLayerMask
-            );
-
-            return hit.collider != null;
-        }
-
-        public virtual bool willTouch(Vector2 direction, float distance) {
-            Vector3 futurepos = transform.position;
-            if (direction == Vector2.left || direction == Vector2.right) {
-                futurepos += new Vector3(raycastBuffer, 0, 0);
-            } else if (direction == Vector2.up || direction == Vector2.down) {
-                futurepos += new Vector3(0, raycastBuffer, 0);
-            }
-
-            RaycastHit2D hit = Physics2D.Raycast(
-                futurepos, 
-                direction,
-                distance, 
-                groundLayerMask
-            );
-
-            return hit.collider != null;
         }
     }
 }

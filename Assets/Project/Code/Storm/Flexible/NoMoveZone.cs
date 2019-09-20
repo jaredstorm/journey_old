@@ -10,13 +10,13 @@ namespace Storm.Flexible {
     {
         public void OnTriggerEnter2D(Collider2D other) {
             if (other.CompareTag("Player")) {
-                other.GetComponent<PlayerCharacter>().movement.DisableMoving();
+                other.GetComponent<PlayerCharacter>().activeMovementMode.DisableMoving();
             }
         }
 
         public void OnTriggerExit2D(Collider2D other) {
             if (other.CompareTag("Player")) {
-                other.GetComponent<PlayerCharacter>().movement.EnableMoving();
+                other.GetComponent<PlayerCharacter>().activeMovementMode.EnableMoving();
             }
         }
     }

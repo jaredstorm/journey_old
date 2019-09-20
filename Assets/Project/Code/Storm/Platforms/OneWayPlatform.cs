@@ -71,7 +71,7 @@ namespace Storm.Platforms {
       float topOfPlatformCollider = platformCollider.bounds.center.y + platformCollider.size.y/2; 
       
       // The player is rising.
-      bool ascending = player.movement.rb.velocity.y > 0;
+      bool ascending = player.activeMovementMode.rb.velocity.y > 0;
 
       //TODO: The platform should only be disabled for the player,
       //      which probably means that the platform collider layer needs to change

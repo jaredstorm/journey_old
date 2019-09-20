@@ -11,13 +11,13 @@ namespace Storm.Flexible {
     public class NoJumpZone : MonoBehaviour {
         void OnTriggerEnter2D(Collider2D other) {
             if (other.CompareTag("Player")) {
-                other.GetComponent<PlayerCharacter>().movement.DisableJump();
+                other.GetComponent<PlayerCharacter>().activeMovementMode.DisableJump();
             }
         }
 
         public void OnTriggerExit2D(Collider2D other) {
             if (other.CompareTag("Player")) {
-                other.GetComponent<PlayerCharacter>().movement.EnableJump();
+                other.GetComponent<PlayerCharacter>().activeMovementMode.EnableJump();
             }
         }
     }

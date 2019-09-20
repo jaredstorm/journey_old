@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Storm.Characters.Player {
-    public class PlayerMovementDream : PlayerMovement {
+    public class MainframeMovement : PlayerMovement {
 
         public bool isMoving;
 
@@ -89,7 +89,24 @@ namespace Storm.Characters.Player {
 
         #endregion
 
+        #region PlayerMovement Method Overrides
 
+        public override void Activate() {
+            base.Activate();
+            resetJumpLogic();
+        }
+
+        public override void Deactivate() {
+            base.Deactivate();
+        }
+
+        #endregion
+
+
+        #region Unity Methods
+        //---------------------------------------------------------------------
+        // Unity Methods
+        //---------------------------------------------------------------------
 
         public override void Start() {
             base.Start();
@@ -112,6 +129,8 @@ namespace Storm.Characters.Player {
             moveCalculations();
             jumpCalculations();
         }
+
+        #endregion
 
         protected void collectInput() {
             jumpInputPressed = Input.GetKeyDown(KeyCode.Space) || jumpInputPressed;
@@ -230,7 +249,7 @@ namespace Storm.Characters.Player {
 
         }
 
-        protected override void moveCalculations() {
+        protected void moveCalculations() {
             // Move the player.
             if (!isMovingEnabled) {
                 rb.velocity *= deceleration; 
@@ -270,7 +289,7 @@ namespace Storm.Characters.Player {
 
         }
 
-        protected override void jumpCalculations() {
+        protected void jumpCalculations() {
             if (!isJumpingEnabled) {
                 jumpInputPressed = false;
                 jumpInputHeld = false;
