@@ -27,7 +27,7 @@ namespace Storm.Characters.Player {
         public Rigidbody2D rb;
         public PlayerCollisionSensor sensor;
 
-        public void Start() {
+        public void Awake() {
             sensor = GetComponent<PlayerCollisionSensor>();
             rb = GetComponent<Rigidbody2D>();
             realisticMovement = GetComponent<RealisticMovement>();

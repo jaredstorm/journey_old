@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Project/Prep/Sandbox/1_Scenes/MainMenu.unity
+    guid: acc3802c7db6eab45a1f2e2d60bb28c7
   - enabled: 0
     path: Assets/Project/Prep/VerticalSlice/_Scenes/Sandbox/StartingScene.unity
     guid: 1f96ae5e602f3574b9112c1d97328536
@@ -41,10 +44,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Project/Prep/VerticalSlice/_Scenes/Slice/Cave_3.unity
     guid: a31bc3b1fe740664b9e4edac295f0e2f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/Prep/VerticalSlice/_Scenes/VerticalSlice.unity
     guid: 1da071352cf7627428a2a93251c4bce3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/Prep/VerticalSlice/_Scenes/Slice/End.unity
     guid: df271430e13a0f64b836512911f19411
+  - enabled: 1
+    path: Assets/Project/Prep/Sandbox/1_Scenes/LiveWire.unity
+    guid: 7720f028eec75f94288cf5de2da322a5
   m_configObjects: {}

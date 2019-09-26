@@ -99,7 +99,7 @@ MonoBehaviour:
   playerSmoothing: 0.25
   sizeSmoothing: 0.9
   velocity: {x: 0, y: 0, z: 0}
-  targetOffset: {x: 0, y: 0, z: -10}
+  targetOffset: {x: 0, y: 7, z: -10}
   leftOffset: {x: -11, y: 7, z: -10}
   rightOffset: {x: 11, y: 7, z: -10}
   isCentered: 0

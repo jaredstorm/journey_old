@@ -47,13 +47,11 @@ namespace Storm.Cameras {
             
             var hit = Physics2D.Raycast(player.transform.position,Vector2.zero,0);
             if (hit.rigidbody != null) {
-                Debug.Log("Collision!");
                 transform.position = hit.rigidbody.transform.position;
                 //transform.position = hit.collider.transform.position;
             } else {
                 transform.position = player.transform.position;
                 if (!isCentered) {
-                    Debug.Log("To Player!");
                     if (player.activeMovementMode.isFacingRight) {
                         transform.position += rightOffset;
                     } else {

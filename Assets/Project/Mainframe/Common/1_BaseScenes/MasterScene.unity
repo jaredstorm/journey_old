@@ -440,6 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   anim: {fileID: 0}
+  boxCollider: {fileID: 0}
   acceleration: 0
   maxVelocity: 0
   deceleration: {x: 0, y: 0}
@@ -453,6 +454,8 @@ MonoBehaviour:
   isOnGround: 0
   isJumpingEnabled: 0
   isMovingEnabled: 0
+  stretch: 0
+  thickness: 0
 --- !u!1001 &1421000575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -763,7 +766,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6935884052667221181}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

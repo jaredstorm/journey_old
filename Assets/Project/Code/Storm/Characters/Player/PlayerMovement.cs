@@ -77,6 +77,8 @@ namespace Storm.Characters.Player {
 
         public bool isMovingEnabled;
 
+        public bool isMomentumEnabled;
+
         #region Sensing Variables
         //---------------------------------------------------------------------------------------//
         //  Sensing Variables
@@ -138,6 +140,17 @@ namespace Storm.Characters.Player {
 
         public void DisableMoving() {
             isMovingEnabled = false;
+        }
+
+
+        /** Keeps a player's movement tethered to a moving platform in the air. */
+        public void EnablePlatformMomentum() {
+            isMomentumEnabled = true;
+        }
+
+        /** Removes player association with a moving platform. */
+        public void DisablePlatformMomentum() {
+            isMomentumEnabled = false;
         }
     }
 }

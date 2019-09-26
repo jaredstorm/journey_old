@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Storm.LevelMechanics.Platforms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -257,6 +258,10 @@ namespace Storm.Characters.Player {
             }
 
             float input = Input.GetAxis("Horizontal");
+            if (!isPlatformMomentumEnabled && input != 0) {
+                transform.SetParent(null);
+            }
+
             float inputDirection = Mathf.Sign(input);
 
             // decelerate.
@@ -419,5 +424,15 @@ namespace Storm.Characters.Player {
             isWallJumping = false;
         }
 
+
+        public void OnCollisionEnter2D(Collision2D collision) {
+            
+            // Catches the case where the player lands on solid ground from a 
+            // moving platform without directional input.
+            if (collision.collider.GetComponent<MovingPlatform>() == null) {
+                DisablePlatformMomentum();
+                transform.SetParent(null);
+            }
+        }
     }
 }

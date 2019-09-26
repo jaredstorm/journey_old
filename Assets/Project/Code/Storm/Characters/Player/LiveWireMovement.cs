@@ -51,6 +51,9 @@ namespace Storm.Characters.Player {
 
         public override void Deactivate() {
             base.Deactivate();
+            if (anim == null) {
+                anim = GetComponent<Animator>();
+            }
             anim.SetBool("LiveWire", false);
             if (rb == null) {
                 rb = GetComponent<Rigidbody2D>();
