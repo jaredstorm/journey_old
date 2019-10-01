@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using System.Diagnostics;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +12,7 @@ using Storm.Extensions;
 using Storm.Characters.Player;
 
 namespace Storm.DialogSystem {
-    public class DialogManager : Singleton<DialogManager> {
+    public class DialogManager : MonoBehaviour {
         public bool canStartConversation;
         public bool isInConversation;
         public bool handlingConversation;
@@ -21,7 +20,7 @@ namespace Storm.DialogSystem {
         public TextMeshProUGUI speakerText;
         public TextMeshProUGUI sentenceText;
 
-        public Animator animator;
+        public Animator dialogBoxAnim;
         public Queue<Sentence> snippets;
         public Queue<Sentence> consequences;
 
@@ -42,32 +41,10 @@ namespace Storm.DialogSystem {
         //---------------------------------------------------------------------
         // Unity Functions
         //---------------------------------------------------------------------
-        public override void Awake() {
-            base.Awake();
-            DontDestroyOnLoad(GameObject.FindGameObjectWithTag("UI"));
-        }
 
-
-        public void Start() {
+        public void Awake() {
             snippets  = new Queue<Sentence>();
             consequences = new Queue<Sentence>();
-        }
-
-        public void Update() {
-            if (isInConversation && Input.GetKeyDown(KeyCode.Space)) {
-                NextSentence();
-                if (currentDialog.IsFinished()) {
-                    GameManager.Instance.player.activeMovementMode.EnableJump();
-
-                    // Prevents the player from jumping at
-                    // the end of every conversation.
-                    Input.ResetInputAxes();
-                }
-            } else if (canStartConversation && Input.GetKeyDown(KeyCode.Space)) {
-                RemoveIndicator();
-                GameManager.Instance.player.activeMovementMode.DisableMoving();
-                StartDialog(currentDialog);
-            }
         }
 
         #endregion
@@ -77,23 +54,30 @@ namespace Storm.DialogSystem {
         // Dialog Handling Functions
         //---------------------------------------------------------------------
         // Begins a new dialog.
-        public void StartDialog(DialogGraph dialog) {
+        public void StartDialog() {
             if (!handlingConversation) {
-                _StartDialog(dialog);
+                _StartDialog();
             }
         }
 
         // Begin dialog Co-Routine.
-        private void _StartDialog(DialogGraph dialog) {
+        private void _StartDialog() {
             handlingConversation = true;
             isInConversation = true;
 
-            currentDialog = dialog;
             if (currentDialog.HasStartEvents()) currentDialog.PerformStartEvents();
 
-            SetCurrentNode(currentDialog.StartDialog());
+            var rootNode = currentDialog.StartDialog();
+            if (rootNode != null) {
+                SetCurrentNode(currentDialog.StartDialog());
+            } else {
+                Debug.Log("NODE IS EMPTY!");
+            }
+            
 
-            animator.SetBool("IsOpen", true);
+            if (dialogBoxAnim != null) {
+                dialogBoxAnim.SetBool("IsOpen", true);
+            }
 
             handlingConversation = false;
             NextSentence();    
@@ -211,11 +195,11 @@ namespace Storm.DialogSystem {
         private void _EndDialog() {
             handlingConversation = true;
 
-            animator.SetBool("IsOpen", false);
-
+            if (dialogBoxAnim != null) {
+                dialogBoxAnim.SetBool("IsOpen", false);
+            }
+            
             if (currentDialog.HasCloseEvents()) currentDialog.PerformCloseEvents();
-
-            GameObject.FindObjectOfType<PlayerCharacter>().activeMovementMode.EnableMoving();
 
             isInConversation = false;
             handlingConversation = false;
@@ -228,27 +212,8 @@ namespace Storm.DialogSystem {
             currentDialog = dialog;
         }
 
-        #endregion
-
-        #region Indicator Functions
-
-        public void AddIndicator() {
-            PlayerCharacter player = GameManager.Instance.player;
-            indicatorInstance = Instantiate<GameObject>(
-                indicatorPrefab, 
-                player.transform.position+indicatorPosition, 
-                Quaternion.identity
-            );
-
-            indicatorInstance.transform.parent = player.transform;
-            canStartConversation = true;
-        }
-
-        public void RemoveIndicator() {
-            if (indicatorInstance != null) {
-                    Destroy(indicatorInstance.gameObject);
-            }
-            canStartConversation = false;
+        public bool IsDialogFinished() {
+            return currentDialog.IsFinished();
         }
 
         #endregion

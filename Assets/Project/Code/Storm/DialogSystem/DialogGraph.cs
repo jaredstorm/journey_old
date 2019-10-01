@@ -45,7 +45,7 @@ namespace Storm.DialogSystem {
         //---------------------------------------------------------------------
         // Constructor(s)
         //---------------------------------------------------------------------
-        public void Start() {
+        public void Awake() {
             if (file == "")  {
                 graph = new Dictionary<string, DialogNode>();
                 foreach (DialogNode n in nodes) {
@@ -155,18 +155,18 @@ namespace Storm.DialogSystem {
             if (other.CompareTag("Player")) {
                 PlayerCharacter player = GameManager.Instance.player;
                 player.activeMovementMode.DisableJump();
-                DialogManager.Instance.AddIndicator();
-                DialogManager.Instance.SetCurrentDialog(this);
+                InGameDialogManager.Instance.AddIndicator();
+                InGameDialogManager.Instance.SetCurrentDialog(this);
             }
         }
 
 
         public void OnTriggerExit2D(Collider2D other) {
             // If the player has left the trigger area
-            if (other.CompareTag("Player") && !DialogManager.Instance.isInConversation) {
+            if (other.CompareTag("Player") && !InGameDialogManager.Instance.isInConversation) {
                 PlayerCharacter player = GameManager.Instance.player;
                 player.activeMovementMode.EnableJump();
-                DialogManager.Instance.RemoveIndicator();
+                InGameDialogManager.Instance.RemoveIndicator();
             }
         }
 
