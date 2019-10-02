@@ -1,0 +1,2 @@
+These scenes have the basic game objects and managers needed to run the game and start building levels quickly.
+Be sure to duplicate these before you start making changes!
