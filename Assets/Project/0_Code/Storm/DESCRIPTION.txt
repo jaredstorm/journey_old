@@ -4,6 +4,6 @@ namespace Storm {
 
   Namespaces that have the word "System" in them refer to more complex code that requires a Manager of some kind to track state.
 
-  Otherwise, the namespaces are used to organize related code.
+  Otherwise, the namespaces are just used to organize related code.
 
 }

@@ -21,6 +21,6 @@ Other Folders:
     Assets:
       The art, animation, sound, etc., involved in making the above prefabs and scenes. 
       
-    ***REMEBER***
+    ***REMEMBER***
     Anything that's shared between two mainframe levels should go in Project/Mainframe/Common instead.
       
