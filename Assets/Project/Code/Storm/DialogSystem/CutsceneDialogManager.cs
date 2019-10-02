@@ -19,7 +19,9 @@ namespace Storm.DialogSystem {
         //---------------------------------------------------------------------
         public override void Awake() {
             base.Awake();
-            manager = GetComponent<DialogManager>();
+            if (manager == null) {
+                manager = GetComponent<DialogManager>();
+            }
             cutscene = GameObject.FindGameObjectWithTag("Cutscene");
             if (cutscene != null) {
                 DontDestroyOnLoad(cutscene);

@@ -4,10 +4,7 @@ STRUCTURE
 
 Sandbox:
   Unstructured space for you to get creative!
-  
-Testing:
-  A place for prefabs and scenes that are useful for testing gameplay ideas, but
-  won't go into the main game.
-  
+
 VerticalSlice:
-  Code/Assets left over from the last vertical slice of the game.
+  Code/Assets left over from the last vertical slice of the game. Much of this stuff
+  has already been moved over to Sandbox or to Finished.
